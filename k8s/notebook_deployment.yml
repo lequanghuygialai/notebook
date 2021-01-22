@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: client-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: api-app
+  template:
+    metadata:
+      labels:
+        component: api-app
+    spec:
+      containers:
+      - name: netcore-app
+        image: lequanghuygialai/notebook:latest
+        ports:
+        - containerPort: 80
+        env:
+        - name: ConnectionStrings__DefaultConnection
+          value: "Host=postgres-node-port;Port=5432;Username=postgres;Password=example;Database=Notebook;"
